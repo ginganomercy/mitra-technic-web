@@ -12,6 +12,10 @@ import Layout from '../layouts/Layout.astro';
         background: transparent;
         border: none;
       }
+      /* Efek premium untuk OSM Tiles (Silver/Light Mode) */
+      .leaflet-tile-pane {
+        filter: grayscale(100%) opacity(0.7) contrast(1.2);
+      }
     </style>
   </Fragment>
   <!-- Hero Section -->
@@ -74,10 +78,10 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
         
-        <!-- Peta Maps (Leaflet CartoDB Positron) -->
+        <!-- Peta Maps (Leaflet OSM + CSS Filter) -->
         <div class="bg-white p-2 rounded-3xl shadow-sm border border-slate-100 animate-fade-in-up [animation-delay:400ms] h-full min-h-[400px]">
           <div class="w-full h-full rounded-2xl overflow-hidden relative group">
-            <div id="map" class="absolute inset-0 w-full h-full z-10"></div>
+            <div id="map" class="absolute inset-0 w-full h-full z-10 bg-[#f1f1f1]"></div>
           </div>
         </div>
 
@@ -94,8 +98,8 @@ import Layout from '../layouts/Layout.astro';
             // Tambahkan kontrol zoom ke pojok kanan bawah
             L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-            // Gunakan CartoDB Positron Tiles (Tampilan Bersih & Minimalis Light Mode)
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            // Gunakan OpenStreetMap gratis 100% tanpa API Key
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
               maxZoom: 19
             }).addTo(map);
 
