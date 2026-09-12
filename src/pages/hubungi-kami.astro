@@ -3,6 +3,17 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Hubungi Kami" description="Informasi kontak Mitra Technic Brothers.">
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+      .leaflet-control-attribution { display: none !important; }
+      .custom-marker {
+        background: transparent;
+        border: none;
+      }
+    </style>
+  </Fragment>
   <!-- Hero Section -->
   <section class="relative py-24 md:py-32 overflow-hidden flex items-center justify-center bg-white">
     <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(225,29,72,0.05)_0%,rgba(255,255,255,1)_70%)] z-0"></div>
@@ -37,7 +48,7 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div>
                 <h3 class="font-bold text-slate-900 text-lg mb-1">Alamat Toko</h3>
-                <p class="text-slate-500 font-light leading-relaxed">Jl. Sunan Kudus, Gg.2 , RT. 06 / RW. 03, Pandean, Kec. Kota Kudus, Kabupaten Kudus, Jawa Tengah 59313</p>
+                <p class="text-slate-500 font-light leading-relaxed">JL Raya Selatan Pasar Kaibun, Balamoa, Kec. Pangkah, Kab. Tegal, Jawa Tengah 52471</p>
               </div>
             </div>
             
@@ -63,22 +74,48 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
         
-        <!-- Peta Maps -->
+        <!-- Peta Maps (Leaflet CartoDB Positron) -->
         <div class="bg-white p-2 rounded-3xl shadow-sm border border-slate-100 animate-fade-in-up [animation-delay:400ms] h-full min-h-[400px]">
           <div class="w-full h-full rounded-2xl overflow-hidden relative group">
-            <div class="absolute inset-0 bg-mitra-blue/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none z-10"></div>
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1156.402421379123!2d109.1678125!3d-6.9532677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb9b5a8e1b6f1%3A0xb1b3f9c6c2e3a8a!2sMitra%20Technic!5e0!3m2!1sen!2sid!4v1709210000000!5m2!1sen!2sid" 
-              width="100%" 
-              height="100%" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade"
-              class="absolute inset-0 w-full h-full object-cover">
-            </iframe>
+            <div id="map" class="absolute inset-0 w-full h-full z-10"></div>
           </div>
         </div>
+
+        <script is:inline>
+          document.addEventListener("DOMContentLoaded", () => {
+            // Koordinat Balamoa, Tegal
+            const map = L.map('map', {
+              center: [-6.9535, 109.1866],
+              zoom: 15,
+              zoomControl: false,
+              scrollWheelZoom: false // disable zoom scroll for better page scrolling
+            });
+
+            // Tambahkan kontrol zoom ke pojok kanan bawah
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+            // Gunakan CartoDB Positron Tiles (Tampilan Bersih & Minimalis Light Mode)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+              maxZoom: 19
+            }).addTo(map);
+
+            // Kustom ikon HTML untuk marker (Solid & Profesional)
+            const customIcon = L.divIcon({
+              className: 'custom-marker',
+              html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#e11d48" class="w-10 h-10 drop-shadow-md">
+                      <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                     </svg>`,
+              iconSize: [40, 40],
+              iconAnchor: [20, 40],
+              popupAnchor: [0, -40]
+            });
+
+            // Tambahkan Marker dengan popup
+            L.marker([-6.9535, 109.1866], {icon: customIcon}).addTo(map)
+              .bindPopup('<b style="color: #e11d48; font-size: 14px;">Mitra Technic</b><br><span style="color:#64748b;">JL Raya Selatan Pasar Kaibun<br>Tegal, Jawa Tengah</span>')
+              .openPopup();
+          });
+        </script>
 
       </div>
     </div>

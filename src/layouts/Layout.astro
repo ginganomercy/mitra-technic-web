@@ -6,9 +6,45 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 interface Props {
   title: string;
   description?: string;
+  canonicalURL?: string;
 }
 
-const { title, description = "Pusat penjualan perlengkapan elektronik, alat teknik, dan suku cadang rumah tangga." } = Astro.props;
+const { 
+  title, 
+  description = "Pusat penjualan perlengkapan elektronik, alat teknik, dan suku cadang rumah tangga terlengkap di Tegal dengan harga grosir dan eceran.",
+  canonicalURL = Astro.url.href
+} = Astro.props;
+
+// JSON-LD Schema untuk Bisnis Lokal (SEO)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mitra Technic Brothers",
+  "image": "https://mitratechnicbrothers.com/favicon.jpg",
+  "@id": "https://mitratechnicbrothers.com",
+  "url": "https://mitratechnicbrothers.com",
+  "telephone": "085955360482",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "JL Raya Selatan Pasar Kaibun",
+    "addressLocality": "Balamoa, Kec. Pangkah, Kab. Tegal",
+    "addressRegion": "Jawa Tengah",
+    "postalCode": "52471",
+    "addressCountry": "ID"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -6.9535,
+    "longitude": 109.1866
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "08:00",
+    "closes": "17:00"
+  },
+  "priceRange": "$$"
+};
 ---
 <!doctype html>
 <html lang="id">
@@ -17,18 +53,33 @@ const { title, description = "Pusat penjualan perlengkapan elektronik, alat tekn
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title} | Mitra Technic</title>
+    <meta name="title" content={`${title} | Mitra Technic`} />
     <meta name="description" content={description} />
+    <meta name="author" content="Mitra Technic Brothers" />
+    
+    <!-- SEO Optimization -->
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     
     <!-- Open Graph / WhatsApp Preview Meta Tags -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={`${title} | Mitra Technic`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/favicon.jpg" />
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    
+    <slot name="head" />
   </head>
   <body class="font-['Inter',sans-serif] bg-white text-gray-800 antialiased min-h-screen flex flex-col selection:bg-mitra-yellow selection:text-mitra-blue">
     <Header />
