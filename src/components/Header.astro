@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import logoImg from '../assets/products/cropped-IMG-20250902-WA0023.jpg';
 ---
-<header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-[0_2px_20px_rgba(15,23,42,0.08)] border-b border-gray-100 transition-all duration-300">
+<header class="sticky top-0 z-[60] w-full bg-white/90 backdrop-blur-md shadow-[0_2px_20px_rgba(15,23,42,0.08)] border-b border-gray-100 transition-all duration-300">
   <div class="container mx-auto px-4 h-20 flex items-center justify-between">
     <!-- Logo Area -->
     <a href="/" class="flex items-center group">
@@ -55,6 +55,8 @@ import logoImg from '../assets/products/cropped-IMG-20250902-WA0023.jpg';
     </nav>
   </div>
 
+</header>
+
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="fixed inset-0 bg-white z-[50] md:hidden opacity-0 invisible transition-all duration-300 ease-in-out">
     <div class="flex flex-col h-full pt-24 pb-8 px-6 overflow-y-auto">
@@ -90,7 +92,6 @@ import logoImg from '../assets/products/cropped-IMG-20250902-WA0023.jpg';
       </div>
     </div>
   </div>
-</header>
 
 <script>
   // Mobile Menu Logic
