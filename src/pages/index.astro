@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { products } from '../data/products';
+import heroBg from '../assets/hero/hero-bg.png';
+
+const usps = [
+  { title: 'Kualitas Terjamin', description: 'Semua produk elektronik yang kami sediakan melewati tahap pengecekan ketat untuk menjamin kualitas terbaik.', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z' },
+  { title: 'Harga Kompetitif', description: 'Dapatkan penawaran harga terbaik untuk seluruh kebutuhan peralatan teknik dan kelistrikan Anda.', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { title: 'Pelayanan Terbaik', description: 'Tim kami selalu siap membantu dan melayani Anda dengan responsif dan profesional.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' }
+];
+
+const categoriesData = [
+  { name: 'Alat Listrik', href: '/alat-listrik', image: products['alat-listrik'][0]?.image },
+  { name: 'Lampu', href: '/lampu', image: products['lampu'][0]?.image },
+  { name: 'Kabel', href: '/kabel', image: products['kabel'][0]?.image },
+  { name: 'Sparepart Mesin Cuci', href: '/sparepart-mesin', image: products['sparepart-mesin'][0]?.image },
+  { name: 'Sparepart Kulkas', href: '/sparepart-kulkas', image: products['sparepart-kulkas'][0]?.image },
+  { name: 'Sparepart AC', href: '/sparepart-ac', image: products['sparepart-ac'][0]?.image },
+  { name: 'Sparepart Rumah Tangga', href: '/sparepart-rumah-tangga', image: products['sparepart-rumah-tangga'][0]?.image },
+  { name: 'Aksesoris Teknik', href: '/aksesoris-teknik', image: products['aksesoris-teknik'][0]?.image },
+  { name: 'Aksesoris Audio', href: '/aksesoris-audio', image: products['aksesoris-audio'][0]?.image }
+];
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/products/*.{jpeg,jpg,png,gif}');
+---
+
+<Layout title="Beranda">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-32 lg:py-48 flex items-center">
+    <!-- Latar Belakang Foto Toko Asli (Sudah berwarna biru) -->
+    <div class="absolute inset-0 z-0">
+      <Image 
+        src={heroBg} 
+        alt="Interior Toko Mitra Technic" 
+        class="w-full h-full object-cover" 
+        width={1920}
+        height={1080}
+        loading="eager"
+      />
+    </div>
+
+    <!-- Konten Hero -->
+    <div class="container mx-auto px-4 relative z-10 text-white">
+      <div class="max-w-3xl">
+        <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight drop-shadow-lg">SELAMAT DATANG DI <br><span class="text-mitra-yellow">MITRA TECHNIC</span></h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-medium drop-shadow">MITRA TECHNIC adalah pusat penjualan perlengkapan elektronik yang menyediakan berbagai produk berkualitas dengan harga yang terjangkau. Kami menghadirkan pilihan produk mulai dari peralatan rumah tangga hingga komponen listrik dan peralatan teknik.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#kategori" class="px-8 py-4 bg-mitra-yellow text-mitra-blue font-bold rounded-lg shadow-lg hover:bg-yellow-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">Lihat Produk</a>
+          <a href="https://wa.me/6285955360482" target="_blank" class="px-8 py-4 bg-transparent border-2 border-mitra-yellow text-mitra-yellow font-bold rounded-lg hover:bg-mitra-yellow hover:text-mitra-blue transition-all duration-300">Hubungi Kami</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USPs Section -->
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-mitra-blue mb-4">Keunggulan Mitra Technic</h2>
+        <div class="w-24 h-1.5 bg-mitra-yellow mx-auto rounded-full"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {usps.map(usp => (
+          <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+            <div class="w-16 h-16 bg-blue-50 text-mitra-blue rounded-xl flex items-center justify-center mb-6 group-hover:bg-mitra-blue group-hover:text-white transition-colors duration-300">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={usp.icon}></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">{usp.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{usp.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section id="kategori" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-mitra-blue mb-4">Kategori Produk</h2>
+        <div class="w-24 h-1.5 bg-mitra-yellow mx-auto rounded-full"></div>
+        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Temukan berbagai kebutuhan elektronik, komponen teknik, hingga aksesoris yang Anda cari.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {categoriesData.map(cat => {
+          const imagePath = `/src/assets/products/${cat.image}`;
+          const imageFn = cat.image ? images[imagePath] : null;
+
+          return (
+            <a href={cat.href} class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-mitra-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
+                {imageFn ? (
+                  <Image 
+                    src={imageFn()} 
+                    alt={cat.name} 
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    width={400} 
+                    height={300} 
+                  />
+                ) : (
+                  <span class="text-gray-500 font-medium z-10 relative">No Image</span>
+                )}
+              </div>
+              <div class="p-6 flex items-center justify-between relative z-20 bg-white">
+                <h3 class="text-lg font-bold text-gray-900 group-hover:text-mitra-blue transition-colors">{cat.name}</h3>
+                <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-mitra-blue group-hover:bg-mitra-yellow group-hover:text-mitra-blue transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Layout>

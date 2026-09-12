@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { products } from '../data/products';
+
+export function getStaticPaths() {
+  return [
+    { params: { category: 'alat-listrik' }, props: { title: 'Alat Listrik' } },
+    { params: { category: 'lampu' }, props: { title: 'Lampu' } },
+    { params: { category: 'kabel' }, props: { title: 'Kabel' } },
+    { params: { category: 'sparepart-mesin' }, props: { title: 'Sparepart Mesin Cuci' } },
+    { params: { category: 'sparepart-kulkas' }, props: { title: 'Sparepart Kulkas' } },
+    { params: { category: 'sparepart-ac' }, props: { title: 'Sparepart AC' } },
+    { params: { category: 'sparepart-rumah-tangga' }, props: { title: 'Sparepart Rumah Tangga' } },
+    { params: { category: 'aksesoris-teknik' }, props: { title: 'Aksesoris Teknik' } },
+    { params: { category: 'aksesoris-audio' }, props: { title: 'Aksesoris Audio' } },
+  ];
+}
+
+const { category } = Astro.params;
+const { title } = Astro.props;
+
+// Ambil data produk berdasarkan slug kategori
+const categoryProducts = products[category] || [];
+
+// Glob pattern untuk mengimpor semua gambar produk agar dapat dioptimasi
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/products/*.{jpeg,jpg,png,gif}');
+---
+
+<Layout title={title}>
+  <div class="bg-mitra-blue text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-black mb-4">{title}</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto">Katalog lengkap untuk produk {title.toLowerCase()} dengan harga kompetitif dan kualitas terjamin.</p>
+    </div>
+  </div>
+  
+  <div class="container mx-auto px-4 py-16">
+    <div class="mb-8 flex items-center justify-between">
+      <p class="text-gray-600 font-medium">Menampilkan {categoryProducts.length} produk unggulan</p>
+      <a href="/#kategori" class="text-mitra-blue font-bold hover:text-mitra-yellow transition-colors flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Kembali ke Kategori
+      </a>
+    </div>
+
+    <!-- Grid Produk Aktual dengan Optimasi Gambar -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {categoryProducts.map((product) => {
+        const imagePath = `/src/assets/products/${product.image}`;
+        const imageFn = images[imagePath];
+        
+        return (
+          <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <div class="h-48 bg-gray-50 relative overflow-hidden flex items-center justify-center">
+              {imageFn ? (
+                <Image 
+                  src={imageFn()} 
+                  alt={product.name} 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  width={300} 
+                  height={300} 
+                />
+              ) : (
+                <span class="text-gray-400 text-sm">Tidak ada gambar</span>
+              )}
+            </div>
+            <div class="p-5 flex flex-col justify-between h-[140px]">
+              <div>
+                <h3 class="font-bold text-gray-900 group-hover:text-mitra-blue transition-colors mb-1 line-clamp-2">{product.name}</h3>
+                <p class="text-sm text-gray-500 mb-3">Tersedia di toko offline</p>
+              </div>
+              <a href={`https://wa.me/6285955360482?text=Halo,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(product.name)}`} target="_blank" class="w-full block text-center py-2 bg-gray-50 text-mitra-blue font-semibold rounded hover:bg-mitra-yellow transition-colors">Tanya Harga</a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</Layout>
