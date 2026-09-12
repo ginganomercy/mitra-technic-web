@@ -7,14 +7,13 @@ import Layout from '../layouts/Layout.astro';
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <style>
-      .leaflet-control-attribution { display: none !important; }
       .custom-marker {
         background: transparent;
         border: none;
       }
-      /* Efek premium untuk OSM Tiles (Silver/Light Mode) */
-      .leaflet-tile-pane {
-        filter: grayscale(100%) opacity(0.7) contrast(1.2);
+      /* Efek Silver-Blue khusus untuk layer Peta Standar */
+      .map-silver-theme {
+        filter: grayscale(100%) sepia(20%) hue-rotate(180deg) brightness(95%) contrast(1.1);
       }
     </style>
   </Fragment>
@@ -87,21 +86,46 @@ import Layout from '../layouts/Layout.astro';
 
         <script is:inline>
           document.addEventListener("DOMContentLoaded", () => {
-            // Koordinat Balamoa, Tegal
+            // 1. Definisikan layer-layer peta
+            
+            // Layer Default: OpenStreetMap dengan filter silver-blue kustom
+            const osmSilver = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              className: 'map-silver-theme' // Memanggil filter CSS khusus
+            });
+
+            // Layer Satelit: Citra asli dunia nyata dari Esri
+            const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+              maxZoom: 19
+            });
+
+            // Layer Topografi: Garis elevasi kontur bumi
+            const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+              maxZoom: 17
+            });
+
+            // 2. Inisialisasi Peta
             const map = L.map('map', {
               center: [-6.9535, 109.1866],
               zoom: 15,
               zoomControl: false,
-              scrollWheelZoom: false // disable zoom scroll for better page scrolling
+              attributionControl: false, // Menghilangkan watermark Leaflet sepenuhnya dari akar JS
+              scrollWheelZoom: false, // disable zoom scroll for better page scrolling
+              layers: [osmSilver] // Layer pertama kali dimuat
             });
 
-            // Tambahkan kontrol zoom ke pojok kanan bawah
+            // 3. Tambahkan kontrol UI
             L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-            // Gunakan OpenStreetMap gratis 100% tanpa API Key
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19
-            }).addTo(map);
+            // Menyatukan layer untuk pilihan dropdown
+            const baseMaps = {
+              "🗺️ Peta Standar": osmSilver,
+              "🛰️ Satelit": esriSatellite,
+              "🏔️ Topografi": openTopoMap
+            };
+            
+            // Tambahkan menu Map Type ke pojok kanan atas
+            L.control.layers(baseMaps, null, { position: 'topright' }).addTo(map);
 
             // Kustom ikon HTML untuk marker (Solid & Profesional)
             const customIcon = L.divIcon({
