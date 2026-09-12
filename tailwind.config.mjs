@@ -5,21 +5,38 @@ export default {
 		extend: {
 			colors: {
 				mitra: {
-					blue: '#07178f',
-					yellow: '#ffcc00',
+					blue: '#0f172a', // Slate 900 untuk kesan sangat profesional
+					red: '#e11d48',  // Rose 600 untuk CTA dan Glow ala NestJS
+					yellow: '#ffcc00', // Warna kuning asli sebagai aksen sekunder
 					whatsapp: '#25D366'
 				}
 			},
 			animation: {
 				'floating': 'floating 2s infinite',
+				'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both',
+				'glow-pulse': 'glowPulse 3s infinite',
+				'fade-in': 'fadeIn 1s ease-out both',
 			},
 			keyframes: {
 				floating: {
 					'0%, 100%': { transform: 'translateY(0)', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' },
 					'50%': { transform: 'translateY(-6px)', boxShadow: '0 8px 20px rgba(0,0,0,0.35)' },
+				},
+				fadeInUp: {
+					'0%': { opacity: '0', transform: 'translateY(20px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
+				glowPulse: {
+					'0%, 100%': { boxShadow: '0 0 15px rgba(225, 29, 72, 0.3)' },
+					'50%': { boxShadow: '0 0 30px rgba(225, 29, 72, 0.7)' },
+				},
+				fadeIn: {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' },
 				}
 			}
 		},
 	},
 	plugins: [],
 }
+// Force tailwind rebuild

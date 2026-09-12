@@ -7,7 +7,7 @@ import heroBg from '../assets/hero/hero-bg.png';
 const usps = [
   { title: 'Kualitas Terjamin', description: 'Semua produk elektronik yang kami sediakan melewati tahap pengecekan ketat untuk menjamin kualitas terbaik.', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z' },
   { title: 'Harga Kompetitif', description: 'Dapatkan penawaran harga terbaik untuk seluruh kebutuhan peralatan teknik dan kelistrikan Anda.', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-  { title: 'Pelayanan Terbaik', description: 'Tim kami selalu siap membantu dan melayani Anda dengan responsif dan profesional.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' }
+  { title: 'Pelayanan Prima', description: 'Tim kami selalu siap membantu dan melayani Anda dengan responsif, solutif, dan profesional.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' }
 ];
 
 const categoriesData = [
@@ -27,47 +27,79 @@ const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/product
 
 <Layout title="Beranda">
   <!-- Hero Section -->
-  <section class="relative overflow-hidden py-32 lg:py-48 flex items-center">
-    <!-- Latar Belakang Foto Toko Asli (Sudah berwarna biru) -->
-    <div class="absolute inset-0 z-0">
-      <Image 
-        src={heroBg} 
-        alt="Interior Toko Mitra Technic" 
-        class="w-full h-full object-cover" 
-        width={1920}
-        height={1080}
-        loading="eager"
-      />
-    </div>
+  <section class="relative overflow-hidden bg-white min-h-[90vh] flex items-center pt-10">
+    <!-- Background Decorators (NestJS Light Style) -->
+    <div class="absolute top-0 right-0 -mr-40 -mt-40 w-[800px] h-[800px] bg-gradient-to-br from-mitra-red/5 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 -ml-40 -mb-40 w-[600px] h-[600px] bg-gradient-to-tr from-mitra-blue/5 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Hero Text -->
+        <div class="max-w-2xl text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-mitra-red font-medium text-sm mb-8 animate-fade-in-up [animation-delay:100ms] shadow-sm">
+            Kebutuhan Elektronika Anda, Kami Sedia
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-slate-900 animate-fade-in-up [animation-delay:200ms]">
+            MITRA<br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-mitra-blue to-mitra-red">TECHNIC</span>
+          </h1>
+          
+          <p class="text-base sm:text-lg md:text-xl text-slate-500 mb-10 leading-relaxed font-light animate-fade-in-up [animation-delay:300ms] max-w-xl mx-auto lg:mx-0">
+            Pusat kelengkapan elektronik, teknik, dan suku cadang terlengkap. Kami menghadirkan standar kualitas terbaik dengan pelayanan cepat untuk Anda.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start animate-fade-in-up [animation-delay:400ms]">
+            <a href="#kategori" class="w-full sm:w-auto text-center px-8 py-3.5 bg-mitra-blue text-white font-semibold rounded-full hover:bg-mitra-red hover:shadow-[0_0_25px_rgba(225,29,72,0.4)] hover:-translate-y-1 transition-all duration-300">
+              Jelajahi Produk
+            </a>
+            <a href="https://wa.me/6285955360482" target="_blank" class="w-full sm:w-auto justify-center px-8 py-3.5 bg-white border border-slate-200 text-slate-700 font-semibold rounded-full hover:border-mitra-red hover:text-mitra-red hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+              Hubungi Kami
+            </a>
+          </div>
+        </div>
 
-    <!-- Konten Hero -->
-    <div class="container mx-auto px-4 relative z-10 text-white">
-      <div class="max-w-3xl">
-        <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight drop-shadow-lg">SELAMAT DATANG DI <br><span class="text-mitra-yellow">MITRA TECHNIC</span></h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-medium drop-shadow">MITRA TECHNIC adalah pusat penjualan perlengkapan elektronik yang menyediakan berbagai produk berkualitas dengan harga yang terjangkau. Kami menghadirkan pilihan produk mulai dari peralatan rumah tangga hingga komponen listrik dan peralatan teknik.</p>
-        <div class="flex flex-wrap gap-4">
-          <a href="#kategori" class="px-8 py-4 bg-mitra-yellow text-mitra-blue font-bold rounded-lg shadow-lg hover:bg-yellow-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">Lihat Produk</a>
-          <a href="https://wa.me/6285955360482" target="_blank" class="px-8 py-4 bg-transparent border-2 border-mitra-yellow text-mitra-yellow font-bold rounded-lg hover:bg-mitra-yellow hover:text-mitra-blue transition-all duration-300">Hubungi Kami</a>
+        <!-- Hero Image (Glassmorphism Frame) -->
+        <div class="relative animate-fade-in-up [animation-delay:500ms] hidden lg:block">
+          <div class="relative rounded-2xl p-2 bg-white/50 backdrop-blur-xl border border-white/60 shadow-[0_20px_50px_rgba(15,23,42,0.1)] transform rotate-2 hover:rotate-0 transition-transform duration-700 z-10">
+            <div class="rounded-xl overflow-hidden relative">
+              <div class="absolute inset-0 bg-mitra-blue/10 mix-blend-multiply z-10"></div>
+              <Image 
+                src={heroBg} 
+                alt="Interior Toko Mitra Technic" 
+                class="w-full h-auto object-cover rounded-xl" 
+                width={800}
+                height={600}
+                loading="eager"
+              />
+            </div>
+          </div>
+          <!-- Decorative Blur Behind Image -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-mitra-blue/10 blur-[80px] -z-10 rounded-full"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- USPs Section -->
-  <section class="py-24 bg-white">
+  <section class="py-24 bg-slate-50 relative border-y border-slate-100">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-black text-mitra-blue mb-4">Keunggulan Mitra Technic</h2>
-        <div class="w-24 h-1.5 bg-mitra-yellow mx-auto rounded-full"></div>
+      <div class="text-center mb-16 animate-fade-in-up">
+        <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">Kenapa Mitra Technic?</h2>
+        <div class="w-16 h-1 bg-gradient-to-r from-mitra-blue to-mitra-red mx-auto rounded-full"></div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {usps.map(usp => (
-          <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-            <div class="w-16 h-16 bg-blue-50 text-mitra-blue rounded-xl flex items-center justify-center mb-6 group-hover:bg-mitra-blue group-hover:text-white transition-colors duration-300">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={usp.icon}></path></svg>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+        {usps.map((usp, i) => (
+          <div class={`bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-[0_15px_40px_rgba(225,29,72,0.08)] hover:-translate-y-2 transition-all duration-500 group animate-fade-in-up [animation-delay:${i * 150}ms] relative overflow-hidden`}>
+            <!-- Hover Gradient Line -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-mitra-blue to-mitra-red transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            
+            <div class="w-14 h-14 bg-slate-50 text-mitra-blue rounded-xl flex items-center justify-center mb-6 group-hover:bg-mitra-red group-hover:text-white transition-colors duration-500 shadow-sm">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={usp.icon}></path></svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">{usp.title}</h3>
-            <p class="text-gray-600 leading-relaxed">{usp.description}</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">{usp.title}</h3>
+            <p class="text-slate-500 leading-relaxed font-light">{usp.description}</p>
           </div>
         ))}
       </div>
@@ -75,40 +107,43 @@ const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/product
   </section>
 
   <!-- Categories Section -->
-  <section id="kategori" class="py-24 bg-gray-50">
+  <section id="kategori" class="py-32 bg-white relative">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-black text-mitra-blue mb-4">Kategori Produk</h2>
-        <div class="w-24 h-1.5 bg-mitra-yellow mx-auto rounded-full"></div>
-        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Temukan berbagai kebutuhan elektronik, komponen teknik, hingga aksesoris yang Anda cari.</p>
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div class="animate-fade-in-up">
+          <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">Kategori Produk</h2>
+          <div class="w-16 h-1 bg-gradient-to-r from-mitra-blue to-mitra-red rounded-full mb-4"></div>
+          <p class="text-slate-500 max-w-xl font-light leading-relaxed">Temukan kelengkapan elektronik, instalasi listrik, alat teknik, hingga suku cadang aplikasi rumah tangga terlengkap.</p>
+        </div>
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {categoriesData.map(cat => {
+        {categoriesData.map((cat, i) => {
           const imagePath = `/src/assets/products/${cat.image}`;
           const imageFn = cat.image ? images[imagePath] : null;
 
           return (
-            <a href={cat.href} class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
-                <div class="absolute inset-0 bg-mitra-blue/20 group-hover:bg-transparent transition-colors z-10"></div>
+            <a href={cat.href} class={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(15,23,42,0.08)] hover:-translate-y-2 transition-all duration-500 border border-slate-100 animate-fade-in-up [animation-delay:${i * 50}ms] flex flex-col`}>
+              <div class="h-56 bg-slate-50 relative overflow-hidden flex items-center justify-center p-4">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 {imageFn ? (
                   <Image 
                     src={imageFn()} 
                     alt={cat.name} 
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 mix-blend-multiply" 
                     width={400} 
                     height={300} 
                   />
                 ) : (
-                  <span class="text-gray-500 font-medium z-10 relative">No Image</span>
+                  <span class="text-slate-300 font-medium z-10 relative">No Image</span>
                 )}
-              </div>
-              <div class="p-6 flex items-center justify-between relative z-20 bg-white">
-                <h3 class="text-lg font-bold text-gray-900 group-hover:text-mitra-blue transition-colors">{cat.name}</h3>
-                <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-mitra-blue group-hover:bg-mitra-yellow group-hover:text-mitra-blue transition-colors">
+                <!-- Hover Arrow Overlay -->
+                <div class="absolute bottom-4 right-4 w-10 h-10 bg-white text-mitra-red rounded-full flex items-center justify-center shadow-lg transform translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </div>
+              </div>
+              <div class="p-6 bg-white relative z-20 border-t border-slate-50 flex-grow flex items-center">
+                <h3 class="text-lg font-bold text-slate-800 group-hover:text-mitra-red transition-colors duration-300">{cat.name}</h3>
               </div>
             </a>
           );
