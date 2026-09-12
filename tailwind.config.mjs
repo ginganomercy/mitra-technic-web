@@ -5,8 +5,8 @@ export default {
 		extend: {
 			colors: {
 				mitra: {
-					blue: '#0f172a', // Slate 900 untuk kesan sangat profesional
-					red: '#e11d48',  // Rose 600 untuk CTA dan Glow ala NestJS
+					blue: '#1d4ed8', // Royal Blue (Identik dengan warna logo asli)
+					red: '#dc2626',  // Solid Red (Identik dengan warna logo asli)
 					yellow: '#ffcc00', // Warna kuning asli sebagai aksen sekunder
 					whatsapp: '#25D366'
 				}
